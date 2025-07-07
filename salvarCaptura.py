@@ -1,9 +1,9 @@
 import serial
 import time
 
-# Substitua pela sua porta serial
-porta = 'COM27'       # No Linux/Mac pode ser /dev/ttyUSB0 ou /dev/ttyS0
-baud_rate = 115200   # Igual ao Serial.begin no Arduino
+
+porta = 'COM27'  
+baud_rate = 115200  
 
 arquivo_saida = "dados_morse_O.csv"
 
