@@ -42,7 +42,7 @@ void loop() {
 
       // Print for export as dataset
       Serial.print(pressDuration);
-      Serial.print(",");
+      Serial.print(" ");
 
       releaseTime = millis(); // Record the release time
       isPressed = false;      // Reset the pressed flag
@@ -55,7 +55,7 @@ void loop() {
   if (!isPressed && releaseTime > 0) {
     unsigned long pauseDuration = millis() - releaseTime; // Calculate pause duration
     if (pauseDuration > END_OF_LETTER_PAUSE_MS) {
-      Serial.println(";"); // Indicate end of letter
+      Serial.println(""); // Indicate end of letter
       releaseTime = 0; // Reset releaseTime to prevent repeated "END OF LETTER" messages
                        // for the same long pause
     }
