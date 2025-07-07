@@ -1,4 +1,4 @@
-#define BUTTON_PIN  5     
+#define BUTTON_PIN  13  
 #define BUZZER_PIN  22    
 
 #define DEBOUNCE_MS        50   // Debounce time for button press/release
@@ -38,24 +38,11 @@ void loop() {
     delay(DEBOUNCE_MS); // Wait for debounce
     if (digitalRead(BUTTON_PIN) == HIGH) { // Check again after debounce
       unsigned long pressDuration = millis() - pressStartTime; // Calculate press duration
-      
-      String classe; // Variable to store the classification
-
-      // Classify the press duration
-      if (pressDuration < NOISE_MS) {
-        classe = "descartado"; // Too short, consider it noise
-      } else if (pressDuration < DOT_LIMIT_MS) {
-        classe = "ponto";      // Within dot duration
-        beep(100);             // Short beep for a dot
-      } else {
-        classe = "traco";      // Longer, considered a dash
-        beep(300);             // Longer beep for a dash
-      }
+    
 
       // Print for export as dataset
       Serial.print(pressDuration);
       Serial.print(",");
-      Serial.println(classe); // Print the classification
 
       releaseTime = millis(); // Record the release time
       isPressed = false;      // Reset the pressed flag
@@ -68,7 +55,7 @@ void loop() {
   if (!isPressed && releaseTime > 0) {
     unsigned long pauseDuration = millis() - releaseTime; // Calculate pause duration
     if (pauseDuration > END_OF_LETTER_PAUSE_MS) {
-      Serial.println("PAUSA LONGA => FIM DE LETRA"); // Indicate end of letter
+      Serial.println(";"); // Indicate end of letter
       releaseTime = 0; // Reset releaseTime to prevent repeated "END OF LETTER" messages
                        // for the same long pause
     }
